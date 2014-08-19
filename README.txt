@@ -4,7 +4,6 @@ made by Eszter Windhager-Pokol
 --------------------------------------------------------------------------------------------------------------------------
 The folder contains the following objects:
 README.txt			-	this document
-UCI HAR Dataset		-	folder with the raw data
 run_analysis.R		-	the R script to create the tidy dataset from the raw data
 tidy_dataset.txt		-	the tidy dataset (following the instructions of the course project) 
 CodeBook.txt		-	the code book for the tidy dataset, describing the variables
