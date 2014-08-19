@@ -1,0 +1,124 @@
+
+-------------------------------------------------------------
+-------------------------------------------------------------
+Code Book for for Getting and Cleaning Data course in Data Science Specialization at https://www.coursera.org/
+made by Eszter Windhager-Pokol
+-------------------------------------------------------------
+-------------------------------------------------------------
+Study Design
+
+Desrciption of the raw data
+
+The raw data can be found here:
+https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip 
+
+The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data. 
+
+The raw data contains the following information:
+- Triaxial acceleration from the accelerometer (total acceleration) and the estimated body acceleration.
+- Triaxial Angular velocity from the gyroscope. 
+- A 561-feature vector with time and frequency domain variables. 
+- Its activity label. 
+- An identifier of the subject who carried out the experiment.
+
+For more information about the raw data - after downloading and unzipping the data - see UCI HAR Dataset/README.txt and UCI HAR Dataset/features_info.txt.
+
+-------------------------------------------------------------
+-------------------------------------------------------------
+Description of the data transformation
+
+Use run_analysis.R to get the tidy_dataset.txt from the raw data. (For more instructions see README.txt)
+
+The first step is reading the data which is needed for both train and test partitions: variable names for x tables (UCI HAR Dataset/features.txt), activity labels (UCI HAR Dataset/activity_labels.txt).
+
+Then a function called prep_data is defined, which prepares the train/test dataset separately, and we can ensure that both  train and test data is transformed exactly the same way:
+-read the x file and matches the coloumn names
+-extracts only the measurements on the mean and standard deviation for each measurement
+-read the subject and the y files
+-join the x, y and the subject files, and fill the coulmn names where needed
+-merge the activity labels
+-reorder the columns of the dataset, and delete the numeric activity codes
+
+Function prep_data is called for the train and the test data separately and the result datasets are appended.
+A tidy data set with the average of each variable for each activity and each subject is created and the column names are set, where needed.
+Finally the tidy data is written into a text file called tidy_dataset.txt and the function also gives back the tidy_dataset.
+
+
+-------------------------------------------------------------
+-------------------------------------------------------------
+Code Book - description of variables in the tidy data
+
+subject - identifies the subject who performed the activity. Its range is from 1 to 30.
+
+activity - identifies the activity performed by the person. There are six activities: WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING.
+
+The remaining 66 variables are all numeric and contain the the average of each measurements' mean and standard deviation (std) for each activity and each subject.
+The range of these variables are the followings
+
+					Minimum		Maximum
+tBodyAcc_mean_X            0.22159824  0.301461020
+tBodyAcc_mean_Y           -0.04051395 -0.001308288
+tBodyAcc_mean_Z           -0.15251390 -0.075378469
+tBodyAcc_std_X            -0.99606864  0.626917071
+tBodyAcc_std_Y            -0.99024095  0.616937015
+tBodyAcc_std_Z            -0.98765866  0.609017879
+tGravityAcc_mean_X        -0.68004316  0.974508732
+tGravityAcc_mean_Y        -0.47989484  0.956593814
+tGravityAcc_mean_Z        -0.49508872  0.957873042
+tGravityAcc_std_X         -0.99676423 -0.829554948
+tGravityAcc_std_Y         -0.99424765 -0.643578361
+tGravityAcc_std_Z         -0.99095725 -0.610161166
+tBodyAccJerk_mean_X        0.04268810  0.130193044
+tBodyAccJerk_mean_Y       -0.03868721  0.056818586
+tBodyAccJerk_mean_Z       -0.06745839  0.038053359
+tBodyAccJerk_std_X        -0.99460454  0.544273037
+tBodyAccJerk_std_Y        -0.98951357  0.355306717
+tBodyAccJerk_std_Z        -0.99328831  0.031015708
+tBodyGyro_mean_X          -0.20577543  0.192704476
+tBodyGyro_mean_Y          -0.20420536  0.027470756
+tBodyGyro_mean_Z          -0.07245460  0.179102058
+tBodyGyro_std_X           -0.99427659  0.267657219
+tBodyGyro_std_Y           -0.99421047  0.476518714
+tBodyGyro_std_Z           -0.98553836  0.564875818
+tBodyGyroJerk_mean_X      -0.15721254 -0.022091627
+tBodyGyroJerk_mean_Y      -0.07680899 -0.013202277
+tBodyGyroJerk_mean_Z      -0.09249985 -0.006940664
+tBodyGyroJerk_std_X       -0.99654254  0.179148650
+tBodyGyroJerk_std_Y       -0.99708158  0.295945926
+tBodyGyroJerk_std_Z       -0.99538079  0.193206499
+tBodyAccMag_mean          -0.98649320  0.644604325
+tBodyAccMag_std           -0.98646454  0.428405923
+tGravityAccMag_mean       -0.98649320  0.644604325
+tGravityAccMag_std        -0.98646454  0.428405923
+tBodyAccJerkMag_mean      -0.99281472  0.434490401
+tBodyAccJerkMag_std       -0.99464692  0.450612066
+tBodyGyroMag_mean         -0.98074085  0.418004609
+tBodyGyroMag_std          -0.98137268  0.299975980
+tBodyGyroJerkMag_mean     -0.99732253  0.087581662
+tBodyGyroJerkMag_std      -0.99766607  0.250173204
+fBodyAcc_mean_X           -0.99524993  0.537012022
+fBodyAcc_mean_Y           -0.98903430  0.524187687
+fBodyAcc_mean_Z           -0.98947393  0.280735952
+fBodyAcc_std_X            -0.99660457  0.658506543
+fBodyAcc_std_Y            -0.99068040  0.560191344
+fBodyAcc_std_Z            -0.98722480  0.687124164
+fBodyAccJerk_mean_X       -0.99463080  0.474317256
+fBodyAccJerk_mean_Y       -0.98939882  0.276716853
+fBodyAccJerk_mean_Z       -0.99201845  0.157775692
+fBodyAccJerk_std_X        -0.99507376  0.476803887
+fBodyAccJerk_std_Y        -0.99046808  0.349771285
+fBodyAccJerk_std_Z        -0.99310776 -0.006236475
+fBodyGyro_mean_X          -0.99312261  0.474962448
+fBodyGyro_mean_Y          -0.99402549  0.328817010
+fBodyGyro_mean_Z          -0.98595779  0.492414380
+fBodyGyro_std_X           -0.99465219  0.196613287
+fBodyGyro_std_Y           -0.99435309  0.646233637
+fBodyGyro_std_Z           -0.98672527  0.522454216
+fBodyAccMag_mean          -0.98680065  0.586637551
+fBodyAccMag_std           -0.98764848  0.178684581
+fBodyBodyAccJerkMag_mean  -0.99399828  0.538404846
+fBodyBodyAccJerkMag_std   -0.99436667  0.316346415
+fBodyBodyGyroMag_mean     -0.98653524  0.203979765
+fBodyBodyGyroMag_std      -0.98146884  0.236659662
+fBodyBodyGyroJerkMag_mean -0.99761739  0.146618569
+fBodyBodyGyroJerkMag_std  -0.99758523  0.287834616
